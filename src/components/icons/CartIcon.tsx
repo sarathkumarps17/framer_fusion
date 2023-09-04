@@ -2,7 +2,7 @@ import classNames from "classnames";
 import React from "react";
 
 type PropsType = { className?: string };
-export default function Cart({ className }: PropsType) {
+export default function CartIcon({ className }: PropsType) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

@@ -1,6 +1,6 @@
 import Bright from './Bright'
 import Moon from './Moon'
-import Cart from './Cart'
-import User from './User'
+import CartIcon from './CartIcon'
+import UserIcon from './UserIcon'
 
-export { Bright, Moon, Cart, User }
+export { Bright, Moon, CartIcon, UserIcon }

@@ -3,7 +3,7 @@ import { useMutation } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
 import { SignUpData, SignUpResponse } from "@/types/user"
 import axios, { AxiosRequestConfig } from 'axios'
-import useAlert, { Variant } from "./useAlert"
+import useAlert from "./useAlert"
 interface UseSessionOptions {
     redirectTo?: string
 }
@@ -24,7 +24,7 @@ const useSignUpQuery = ({
     redirectTo,
 }: UseSessionOptions) => {
     const router = useRouter()
-    const setAlert = useAlert({ description: 'Successfully Signed in', variant: Variant.success })
+    const setAlert = useAlert({ description: 'Successfully Signed in', variant: 'success' })
     const mutation = useMutation({
         mutationFn: (variables: SignUpData) => signUp(variables),
         onSettled(data, error) {

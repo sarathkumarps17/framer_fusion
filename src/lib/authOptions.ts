@@ -4,6 +4,7 @@ import { prisma } from "./prisma";
 import bcrypt from 'bcrypt'
 import { generateToken, verifyToken } from "@/helpers/jwt";
 import GoogleProvider from "next-auth/providers/google";
+import { sessionExpiry, tokenExpiry } from "./constants";
 
 
 export const authOptions: NextAuthOptions = {
@@ -64,23 +65,27 @@ export const authOptions: NextAuthOptions = {
             if (account) {
                 token.accessToken = account.access_token
                 token.email = profile?.email
+                token.picture = profile?.image
             }
             if (user) {
                 token.id = user.id,
                     token.email = user.email
+                token.picture = user.image
             }
             return token
-        }
+        },
     },
     pages: {
         signIn: '/auth/login',
     },
     session: {
         strategy: "jwt",
+        maxAge: sessionExpiry
     },
     secret: process.env.JWT_SECRET,
     jwt: {
-        secret: process.env.JWT_SECRET
+        secret: process.env.JWT_SECRET,
+        maxAge: tokenExpiry
     }
 }
 

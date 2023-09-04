@@ -5,7 +5,7 @@ import z from 'zod'
 export const UserSessionSchema = z.object({
     name: z.string(),
     email: z.string(),
-    image: z.string().optional().nullable()
+    image: z.string().optional()
 })
 export type UserSession = z.infer<typeof UserSessionSchema>;
 

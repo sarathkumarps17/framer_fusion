@@ -1,9 +1,12 @@
 import { loginFormSchema } from '@/components/auth/LoginForm'
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQuery } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
 import * as z from "zod"
 import { signIn } from "next-auth/react";
 import { SignInResponse } from 'next-auth/react'
+import { fetchSession } from './useNextAuthQuerySession';
+import { sessionExpiry, sessionQueryKey } from '@/lib/constants';
+
 
 
 
@@ -18,12 +21,17 @@ export async function login(userData: UserData): Promise<SignInResponse | undefi
 const useNextSingIn = ({
     redirectTo,
 }: UseSessionOptions) => {
+    const query = useQuery([sessionQueryKey], fetchSession, {
+        staleTime: sessionExpiry,
+        enabled: false
+    })
     const router = useRouter()
     const mutation = useMutation({
         mutationFn: (variables: UserData) => login(variables),
         onSettled(data, error) {
             if (!redirectTo) return
             if (data && data.ok && (data.error === 'SessionExpired' || !data.error)) {
+                query.refetch()
                 router.push(redirectTo)
             }
         }

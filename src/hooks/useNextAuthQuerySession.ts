@@ -2,6 +2,7 @@ import { useQuery, UseQueryOptions } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
 import { Session } from "next-auth"
 import { UserSessionSchema } from "@/types/user"
+import { sessionExpiry, sessionQueryKey } from "@/lib/constants"
 
 interface UseSessionOptions {
     /** If set to `true`, the returned session is guaranteed to not be `null` */
@@ -17,7 +18,6 @@ export async function fetchSession(): Promise<Session | null> {
     const res = await fetch("/api/auth/session")
     const session = await res.json()
     if (Object.keys(session).length) {
-        console.log({ session })
         return session
     }
     return null
@@ -28,16 +28,18 @@ const useNextAuthQuerySession = ({
     queryConfig = {},
 }: UseSessionOptions) => {
     const router = useRouter()
-    const query = useQuery<Session | null>(["session"], {
-        queryFn: fetchSession,
+    const query = useQuery<Session | null>([sessionQueryKey], fetchSession, {
+        staleTime: sessionExpiry,
         ...queryConfig,
         onSettled(data, error) {
             if (!required || data) return
             router.push(redirectTo)
         },
     })
-    const user = UserSessionSchema.safeParse(query.data?.user);
-    const isAuthenticated = user.success;
-    return { user, isAuthenticated, query }
+    const parsedUser = UserSessionSchema.safeParse(query.data?.user);
+    const isAuthenticated = parsedUser.success;
+    const user = isAuthenticated ? parsedUser.data : null
+    const status = query.status
+    return { user, isAuthenticated, status, query }
 }
 export default useNextAuthQuerySession

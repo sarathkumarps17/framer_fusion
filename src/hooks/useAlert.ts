@@ -1,11 +1,7 @@
 import { useToast } from "@/components/ui/use-toast";
-export enum Variant {
-    success = "success",
-    danger = "destructive",
-    default = 'default'
-}
+
 interface AlertInterface {
-    variant: Variant,
+    variant?: "success" | "destructive" | 'default',
     description: string,
     title?: string,
     timeDelay?: number

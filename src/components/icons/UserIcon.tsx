@@ -3,7 +3,7 @@ import React from "react";
 classNames;
 type PropsType = { className?: string };
 
-export default function User({ className }: PropsType) {
+export default function UserIcon({ className }: PropsType) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

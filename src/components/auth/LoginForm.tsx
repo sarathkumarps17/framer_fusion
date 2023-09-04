@@ -8,13 +8,13 @@ import { Form } from "@/components/ui/form";
 import Credentials from "./Credentials";
 import Spinner from "../icons/Spinner";
 import useNextSingIn from "@/hooks/useNextSignIn";
-import useNextAuthQuerySession from "@/hooks/useNextAuthQuerySession";
 import { ErrorToast } from "./ErrorToast";
 import { useRouter } from "next/navigation";
 
 import { Separator } from "@/components/ui/separator";
 import ThirdPartyLogin from "./ThirdPartyLogin";
 import { signIn } from "next-auth/react";
+import useQuerySession from "@/hooks/useSession";
 
 export const loginFormSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
@@ -29,15 +29,11 @@ export default function LoginForm() {
       password: "",
     },
   });
-  const { mutation, error, isSuccess } = useNextSingIn({ redirectTo: "/" });
+  const { mutation, error } = useNextSingIn({ redirectTo: "/" });
   const { status } = mutation;
-  const { isAuthenticated, query } = useNextAuthQuerySession({
-    required: true,
-    queryConfig: {
-      refetchOnMount: true,
-    },
-  });
   const router = useRouter();
+  const { isAuthenticated } = useQuerySession();
+
   if (isAuthenticated) router.push("/");
   const onSubmit = async (data: z.infer<typeof loginFormSchema>) => {
     mutation.mutate(data);
@@ -51,7 +47,7 @@ export default function LoginForm() {
       />
       <div className="flex h-8">
         <Separator className="w-40 my-auto" /> <span className="px-5">or</span>
-        <Separator className="w-40 my-auto" />T
+        <Separator className="w-40 my-auto" />
       </div>
       <div className="pt-10">
         <Form {...form}>
