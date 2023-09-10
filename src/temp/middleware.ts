@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { authenticate } from '@/lib/auth'
-import { userAuthHeaderKey } from './lib/constants'
+import { userAuthHeaderKey } from '../lib/constants'
 
 // Limit the middleware to paths starting with `/api/profile`
 export const config = {
