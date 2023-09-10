@@ -32,17 +32,19 @@ export default function User() {
       <DropdownMenuContent>
         {isAuthenticated && (
           <DropdownMenuItem>
-            <Link href={"/profile"}>Profile</Link>
+            <Link className="mx-2" href={"/profile"}>
+              Profile
+            </Link>
           </DropdownMenuItem>
         )}
         <DropdownMenuItem>
           {" "}
           {isAuthenticated ? (
-            <div className="mx-10" onClick={() => logOut()}>
+            <div className="mx-2" onClick={() => logOut()}>
               Logout
             </div>
           ) : (
-            <Link className="mx-10" href={"/auth/signUp"}>
+            <Link className="mx-2" href={"/auth/signUp"}>
               Sign Up
             </Link>
           )}{" "}

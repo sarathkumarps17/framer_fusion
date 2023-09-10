@@ -1,7 +1,7 @@
 import { sessionQueryKey } from '@/lib/constants'
 import { useQueryClient, QueryStatus } from '@tanstack/react-query'
 import { Session } from 'next-auth'
-import { useSession } from 'next-auth/react'
+
 
 type AuthSession = {
     isAuthenticated: boolean,

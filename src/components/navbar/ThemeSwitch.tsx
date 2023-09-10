@@ -10,7 +10,7 @@ export default function ThemeSwitch() {
   const toggleTheme = () => (isLight ? setTheme("dark") : setTheme("light"));
   return (
     <div className="flex">
-      <div className="pt-1" onClick={toggleTheme}>
+      <div className="pt-1  cursor-pointer" onClick={toggleTheme}>
         <Bright
           className={classNames(
             !isLight ? "hidden" : "relative left-5 z-10 scale-75 pb-1"
