@@ -11,17 +11,21 @@ import {
 import { Skeleton } from "../ui/skeleton";
 import Link from "next/link";
 import { logOut } from "@/lib/auth";
-import useNextAuthQuerySession from "@/hooks/useNextAuthQuerySession";
+import { UserSession } from "@/types/user";
 
-export default function User() {
-  const { isAuthenticated, user, status } = useNextAuthQuerySession({});
+interface PropType {
+  isAuthenticated: boolean;
+  user: UserSession | null;
+  status: "error" | "success" | "loading";
+}
+export default function User({ isAuthenticated, user, status }: PropType) {
   return (
     <DropdownMenu>
       {status === "loading" ? (
-        <Skeleton className="h-12 w-12 rounded-full" />
+        <Skeleton className="h-8 w-8 rounded-full" />
       ) : (
         <DropdownMenuTrigger asChild>
-          <Avatar>
+          <Avatar className="h-8 w-8 border-2 border-primary">
             <AvatarImage src={user?.image} />
             <AvatarFallback>
               <UserIcon />

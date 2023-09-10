@@ -30,7 +30,7 @@ export default function RootLayout({
         <Providers>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <Navbar />
-            {children}
+            <main className="w-full p-20">{children}</main>
             <Toaster />
           </ThemeProvider>
         </Providers>

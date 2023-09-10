@@ -10,11 +10,11 @@ import Spinner from "../icons/Spinner";
 import useNextSingIn from "@/hooks/useNextSignIn";
 import { ErrorToast } from "./ErrorToast";
 import { useRouter } from "next/navigation";
-
 import { Separator } from "@/components/ui/separator";
 import ThirdPartyLogin from "./ThirdPartyLogin";
 import { signIn } from "next-auth/react";
 import useQuerySession from "@/hooks/useSession";
+import { motion } from "framer-motion";
 
 export const loginFormSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
@@ -29,7 +29,11 @@ export default function LoginForm() {
       password: "",
     },
   });
-  const { mutation, error } = useNextSingIn({ redirectTo: "/" });
+  const { mutation, error } = useNextSingIn({
+    redirectTo: "/",
+    provider: "credentials",
+  });
+  const googleSignIn = useNextSingIn({ redirectTo: "/", provider: "google" });
   const { status } = mutation;
   const router = useRouter();
   const { isAuthenticated } = useQuerySession();
@@ -42,8 +46,8 @@ export default function LoginForm() {
   return (
     <div>
       <ThirdPartyLogin
-        onGitHubSignIn={() => {}}
-        onGoogleSignIn={() => signIn("google", { callbackUrl: "/" })}
+        googleSignInStatus={googleSignIn.mutation.status}
+        onGoogleSignIn={() => googleSignIn.mutation.mutate(undefined)}
       />
       <div className="flex h-8">
         <Separator className="w-40 my-auto" /> <span className="px-5">or</span>
@@ -55,17 +59,19 @@ export default function LoginForm() {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <Credentials control={form.control} />
             <div className="w-auto text-center">
-              <Button
-                className="w-32"
-                disabled={status === "loading"}
-                type="submit"
-              >
-                {status === "loading" ? (
-                  <Spinner className=" w-3.5 h-3.5 text-gray-200 dark:text-white fill-black" />
-                ) : (
-                  <span>Sign In</span>
-                )}
-              </Button>
+              <motion.div whileTap={{ scale: 0.95 }}>
+                <Button
+                  className="w-32"
+                  disabled={status === "loading"}
+                  type="submit"
+                >
+                  {status === "loading" ? (
+                    <Spinner className=" w-3.5 h-3.5 text-gray-200 dark:text-white fill-black" />
+                  ) : (
+                    <span>Sign In</span>
+                  )}
+                </Button>
+              </motion.div>
             </div>
           </form>
         </Form>

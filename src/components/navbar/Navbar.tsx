@@ -3,7 +3,10 @@ import { CartIcon } from "../icons";
 import BrandName from "./Brand";
 import ThemeSwitch from "./ThemeSwitch";
 import User from "./User";
+import useNextAuthQuerySession from "@/hooks/useNextAuthQuerySession";
+
 export default function Navbar() {
+  const sessionData = useNextAuthQuerySession({});
   return (
     <div className="h-16 mx-10 mt-5 flex justify-start align-middle">
       <BrandName />
@@ -16,7 +19,7 @@ export default function Navbar() {
           <CartIcon />
         </div>
         <div className="mx-5 cursor-pointer">
-          <User />
+          <User {...sessionData} />
         </div>
       </div>
     </div>

@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import Credentials from "./Credentials";
 import { SignUpData, SignUpSchema } from "@/types/user";
 import useSignUpQuery from "@/hooks/useSignupQuery";
+import { motion } from "framer-motion";
 
 export default function SignUpFrom() {
   const { isSuccess, mutation } = useSignUpQuery({ redirectTo: "/" });
@@ -72,12 +73,14 @@ export default function SignUpFrom() {
           )}
         />
         <div className="w-auto text-center">
-          <Button disabled={mutation.isLoading} type="submit">
-            <span className="mr-2">Sign Up</span>
-            {mutation.isLoading && (
-              <span className="loading loading-spinner loading-xs"></span>
-            )}
-          </Button>
+          <motion.div whileTap={{ scale: 0.95 }}>
+            <Button disabled={mutation.isLoading} type="submit">
+              <span className="mr-2">Sign Up</span>
+              {mutation.isLoading && (
+                <span className="loading loading-spinner loading-xs"></span>
+              )}
+            </Button>
+          </motion.div>
         </div>
       </form>
     </Form>

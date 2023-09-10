@@ -11,14 +11,18 @@ import { sessionExpiry, sessionQueryKey } from '@/lib/constants';
 
 
 type UserData = z.infer<typeof loginFormSchema>
+type Provider = 'credentials' | 'google' | 'gitHub'
+
 interface UseSessionOptions {
-    redirectTo?: string
+    redirectTo?: string,
+    provider: Provider
 }
 
-export async function login(userData: UserData): Promise<SignInResponse | undefined> {
-    return signIn('credentials', { ...userData, redirect: false })
+export async function login(provider: Provider, userData?: UserData): Promise<SignInResponse | undefined> {
+    return signIn(provider, { ...userData, redirect: false })
 }
 const useNextSingIn = ({
+    provider,
     redirectTo,
 }: UseSessionOptions) => {
     const query = useQuery([sessionQueryKey], fetchSession, {
@@ -27,7 +31,7 @@ const useNextSingIn = ({
     })
     const router = useRouter()
     const mutation = useMutation({
-        mutationFn: (variables: UserData) => login(variables),
+        mutationFn: (variables?: UserData) => login(provider, variables),
         onSettled(data, error) {
             if (!redirectTo) return
             if (data && data.ok && (data.error === 'SessionExpired' || !data.error)) {

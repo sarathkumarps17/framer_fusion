@@ -11,7 +11,7 @@ export default function Page() {
       </div>
       <div className="text-center mt-5">
         If you do not have an account please
-        <Link className="pl-1" href="/auth/register">
+        <Link className="pl-1" href="/auth/signUp">
           Sign Up
         </Link>
       </div>

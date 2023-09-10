@@ -1,30 +1,17 @@
-import {
-  LoginButton,
-  LogoutButton,
-  ProfileButton,
-  RegisterButton,
-} from "@/components/ButtonComponents";
+import Frame from "@/components/shop/Frame";
 
-import { authOptions } from "@/lib/authOptions";
-
-export default async function Home() {
+export default function Home() {
+  const baseArray = Array.from(Array(200).keys());
   return (
-    <main
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "70vh",
-      }}
-    >
-      <div>
-        <LoginButton />
-        <RegisterButton />
-        <LogoutButton />
-        <ProfileButton />
-
-        <h1>Server Session</h1>
+    <div className="w-full">
+      <div className="grid grid-cols-3 gap-2">
+        {baseArray.map((ind) => (
+          <Frame
+            key={ind}
+            url={`https://picsum.photos/600?random=${ind + 1}`}
+          />
+        ))}
       </div>
-    </main>
+    </div>
   );
 }
