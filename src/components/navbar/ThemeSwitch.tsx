@@ -10,20 +10,20 @@ export default function ThemeSwitch() {
   const toggleTheme = () => (isLight ? setTheme("dark") : setTheme("light"));
   return (
     <div className="flex">
-      <div className="pt-1  cursor-pointer" onClick={toggleTheme}>
+      <div className="cursor-pointer" onClick={toggleTheme}>
         <Bright
           className={classNames(
-            !isLight ? "hidden" : "relative left-5 z-10 scale-75 pb-1"
+            !isLight ? "hidden" : "relative left-5 top-[2px] z-10 scale-50"
           )}
         />
         <Moon
           className={classNames(
-            isLight ? "hidden" : "relative left-10 z-10 scale-75 pb-1"
+            isLight ? "hidden" : "relative left-9 z-10 top-[2px] scale-50"
           )}
         />
       </div>
       <Switch
-        className="scale-125 mt-1"
+        className="mt-1"
         checked={!isLight}
         onCheckedChange={toggleTheme}
         aria-label="Toggle italic"

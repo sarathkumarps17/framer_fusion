@@ -4,7 +4,7 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="container max-w-md mt-10">
+    <div className="container max-w-md">
       <div className="flex-row justify-between">
         <nav></nav>
         {children}

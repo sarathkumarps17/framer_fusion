@@ -30,7 +30,7 @@ export default function RootLayout({
         <Providers>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <Navbar />
-            <main className="w-full p-20">{children}</main>
+            <main className="w-full px-10 py-16">{children}</main>
             <Toaster />
           </ThemeProvider>
         </Providers>

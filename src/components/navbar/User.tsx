@@ -22,10 +22,10 @@ export default function User({ isAuthenticated, user, status }: PropType) {
   return (
     <DropdownMenu>
       {status === "loading" ? (
-        <Skeleton className="h-8 w-8 rounded-full" />
+        <Skeleton className="h-4 w-4 rounded-full" />
       ) : (
         <DropdownMenuTrigger asChild>
-          <Avatar className="h-8 w-8 border-2 border-primary">
+          <Avatar className="h-6 w-6 border-2 border-foreground">
             <AvatarImage src={user?.image} />
             <AvatarFallback>
               <UserIcon />

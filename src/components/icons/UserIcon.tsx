@@ -11,7 +11,7 @@ export default function UserIcon({ className }: PropsType) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className={classNames("w-6 h-6", className)}
+      className={classNames("w-4 h-4", className)}
     >
       <path
         strokeLinecap="round"
